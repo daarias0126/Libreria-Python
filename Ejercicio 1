@@ -1,0 +1,8 @@
+import numpy as np
+votos = np.random.randint(1, 31, size=5000)
+conteos = np.bincount(votos)[1:]  
+orden_indices = np.argsort(-conteos)
+candidatos_ordenados = orden_indices + 1  
+print("Ranking de candidatos (Número de candidato: votos):")
+for candidato in candidatos_ordenados:
+print(f"Candidato {candidato}: {conteos[candidato-1]} votos")
