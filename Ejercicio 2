@@ -1,0 +1,29 @@
+import numpy as np
+n_estudiantes = 6500
+anios = np.random.randint(1980, 2001, n_estudiantes)
+carreras = np.random.choice(['A', 'B', 'C', 'D'], n_estudiantes)
+numeros = np.random.randint(1, 1000, n_estudiantes)
+codigos = np.array([f"{anio}{carrera}{num:03d}" for anio, carrera, num in zip(anios, carreras, numeros)])
+nombres = np.array([f"Estudiante{i+1}" for i in range(n_estudiantes)])
+promedios = np.random.uniform(2.0, 5.0, n_estudiantes)
+anios_extraidos = np.char.substr(codigos, 0, 4).astype(int)
+carreras_extraidas = np.char.substr(codigos, 4, 1)
+carrera_input = input("Ingrese el código de la carrera a listar (por ejemplo, A, B, C o D): ").upper().strip()
+filtro_carrera = (carreras_extraidas == carrera_input) & (promedios >= 4.0)
+estudiantes_carrera = codigos[filtro_carrera]
+nombres_carrera = nombres[filtro_carrera]
+
+print(f"\nEstudiantes de la carrera {carrera_input} con promedio >= 4:")
+for cod, nom in zip(estudiantes_carrera, nombres_carrera):
+    print(f"Código: {cod}, Nombre: {nom}")
+print(f"Total de estudiantes: {len(estudiantes_carrera)}")
+
+filtro_condicional = (anios_extraidos < 1990) & (promedios < 4.0)
+
+estudiantes_condicionales = codigos[filtro_condicional]
+nombres_condicionales = nombres[filtro_condicional]
+
+print("\nEstudiantes que ingresaron antes de 1990 y están condicionales (promedio < 4):")
+for cod, nom in zip(estudiantes_condicionales, nombres_condicionales):
+    print(f"Código: {cod}, Nombre: {nom}")
+print(f"Total de estudiantes condicionales: {len(estudiantes_condicionales)}")
